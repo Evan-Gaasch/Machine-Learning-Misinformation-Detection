@@ -46,28 +46,70 @@ class NeuralNetwork(nn.Module):
         super().__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(512, 700), #input
-            nn.ReLU(),
-            #nn.Dropout(0.2),
-            nn.Linear(700, 1024), #hidden 1
-            nn.ReLU(),
-            nn.Dropout(0.1),
-            nn.Linear(1024, 2048), #hidden 2
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(2048, 1024), #hidden 5
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(1024, 512), #hidden 3
-            nn.ReLU(),
-            nn.Dropout(0.1),
-            nn.Linear(512, 512), #hidden 4
+            nn.Linear(512, 900), #input
             nn.ReLU(),
             #nn.Dropout(0.1),
-            nn.Linear(512, 400), #hidden 5
+            nn.Linear(900, 1024), #hidden 1 
             nn.ReLU(),
-            nn.Linear(400, 2),#output
+            nn.Dropout(0.5),
+            nn.Linear(1024, 1200), #hidden 2
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(1200, 1600), #hidden 3
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(1600, 1900), #hidden 4
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(1900, 2048), #hidden 5
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(2048, 3500), #hidden 6
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(3500, 4096), #hidden 7
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(4096, 3500), #hidden 8
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(3500, 2048), #hidden 9
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(2048, 1900), #hidden 10
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(1900, 1600), #hidden 11
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(1600, 1200), #hidden 12
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(1200, 1024), #hidden 13
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(1024, 900), #hidden 14
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(900, 700), #hidden 15
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(700, 512), #hidden 16
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(512, 300), #hidden 17
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(300, 200), #hidden 18
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(200, 150), #hidden 19
+            nn.ReLU(),
+            nn.Linear(150, 100), #hidden 20
+            nn.ReLU(),
+            nn.Linear(100, 2),#output
        )
+   
 
     def forward(self, x):
         x = self.flatten(x)
@@ -77,7 +119,7 @@ class NeuralNetwork(nn.Module):
 
 #load model
 model = NeuralNetwork().to("cpu")#if using colab and cuda gpu, switch to "cuda"
-model.load_state_dict(torch.load('E:/Evan/Coding/code/AI/model_architecture/model_weights.pth'))
+model.load_state_dict(torch.load('./model_weights.pth'))
 print("loaded model")
 model.eval()
 with torch.no_grad():
